@@ -1,5 +1,6 @@
 package org.gus.armstrong_gym.service;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.gus.armstrong_gym.domain.model.Member;
@@ -12,6 +13,10 @@ public class MemberService {
 
   @Autowired
   MemberRepository memberRepository;
+
+  public List<Member> findAll(){
+    return memberRepository.findAll();
+  }
   
   public Member findById(Long id) {
     return memberRepository.findById(id).orElseThrow(NoSuchElementException::new);
@@ -22,5 +27,15 @@ public class MemberService {
       throw new IllegalArgumentException("This member already exists.");
     }
     return memberRepository.save(member);
+  }
+
+  public void deleteMember(Long id){
+    memberRepository.deleteById(id);
+  }
+
+  public Member updateMember(Long id, Member newMember){
+    Member updatedMember = memberRepository.findById(id).orElseThrow(NoSuchElementException::new);
+    updatedMember.updateMember(newMember);    
+    return memberRepository.save(updatedMember);
   }
 }

@@ -10,7 +10,8 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class DataBaseSeeder {
-  @Bean
+
+    @Bean
     CommandLineRunner init(MemberService memberService) {
         return args -> {
 

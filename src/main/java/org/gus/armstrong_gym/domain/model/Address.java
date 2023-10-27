@@ -1,6 +1,8 @@
 package org.gus.armstrong_gym.domain.model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -39,8 +41,11 @@ public class Address {
   private String state;
 
   @OneToOne(cascade = CascadeType.ALL, mappedBy = "address")
+  @JsonBackReference
   @NotNull
   private Member member;
+
+  public Address(){}
 
   public Address(@NotEmpty String cep, @NotEmpty String street, @NotEmpty String number,
       String complement, @NotEmpty String neighborhood, @NotEmpty String city, @NotEmpty String state) {
@@ -123,6 +128,13 @@ public class Address {
 
   public void setMember(Member member) {
     this.member = member;
+  }
+
+  @Override
+  public String toString() {
+    return "Address [id=" + id + ", cep=" + cep + ", street=" + street + ", number=" + number + ", complement="
+        + complement + ", neighborhood=" + neighborhood + ", city=" + city + ", state=" + state + ", member=" + member.getId()
+        + "]";
   }
 
   

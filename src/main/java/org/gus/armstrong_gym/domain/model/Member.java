@@ -3,6 +3,8 @@ package org.gus.armstrong_gym.domain.model;
 
 import org.gus.armstrong_gym.domain.model.enums.PaymentPlan;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -40,12 +42,15 @@ public class Member {
 
   @OneToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "address_id")
+  @JsonManagedReference
   @NotNull
   private Address address;
 
   @Enumerated(EnumType.STRING)
   @NotNull
   private PaymentPlan paymentPlan;
+
+  public Member(){}
 
   public Member(@NotEmpty String fullname, @NotEmpty String cpf, @NotEmpty String phone, @NotEmpty String email,
       @NotNull Address address, @NotNull PaymentPlan paymentPlan) {
@@ -113,5 +118,17 @@ public class Member {
     this.paymentPlan = paymentPlan;
   }
 
-  
+  public void updateMember(Member member){
+    this.fullname = member.getFullname();
+    this.cpf = member.getCpf();
+    this.phone = member.getPhone();
+    this.email = member.getEmail();
+    this.paymentPlan = member.getPaymentPlan();
+  }
+
+  @Override
+  public String toString() {
+    return "Member [id=" + id + ", fullname=" + fullname + ", cpf=" + cpf + ", phone=" + phone + ", email=" + email
+        + ", address=" + address + ", paymentPlan=" + paymentPlan + "]";
+  }
 }

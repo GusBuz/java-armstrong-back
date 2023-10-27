@@ -2,7 +2,9 @@ package org.gus.armstrong_gym.domain.repository;
 
 import org.gus.armstrong_gym.domain.model.Address;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface AdressRepository extends JpaRepository<Address,Long>{
+@Repository
+public interface AddressRepository extends JpaRepository<Address,Long>{
   
 }
