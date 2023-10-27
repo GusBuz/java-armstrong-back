@@ -137,5 +137,13 @@ public class Address {
         + "]";
   }
 
-  
+  public void updateAdress(Address address){
+    this.cep = address.getCep();
+    this.street = address.getStreet();
+    this.number = address.getNumber();
+    this.complement = address.getComplement();
+    this.neighborhood = address.getNeighborhood();
+    this.city = address.getCity();
+    this.state = address.getState();
+  }
 }
