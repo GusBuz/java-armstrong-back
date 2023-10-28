@@ -133,11 +133,11 @@ public class Address {
   @Override
   public String toString() {
     return "Address [id=" + id + ", cep=" + cep + ", street=" + street + ", number=" + number + ", complement="
-        + complement + ", neighborhood=" + neighborhood + ", city=" + city + ", state=" + state + ", member=" + member.getId()
+        + complement + ", neighborhood=" + neighborhood + ", city=" + city + ", state=" + state + ", member=" 
         + "]";
   }
 
-  public void updateAdress(Address address){
+  public void updateAddress(Address address){
     this.cep = address.getCep();
     this.street = address.getStreet();
     this.number = address.getNumber();

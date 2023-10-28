@@ -24,7 +24,7 @@ public class AddressService {
 
   public Address updateAddress(Long id, Address newAddress){
     Address updatedAddress = addressRepository.findById(id).orElseThrow(NoSuchElementException::new);
-    updatedAddress.updateAdress(newAddress);
+    updatedAddress.updateAddress(newAddress);
     return addressRepository.save(updatedAddress);
   }
 }

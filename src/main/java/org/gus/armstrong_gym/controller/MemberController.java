@@ -32,7 +32,7 @@ public class MemberController {
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<Member> findOneMember(@PathVariable Long id){
+  public ResponseEntity<Member> getOneMember(@PathVariable Long id){
     var member = memberService.findById(id);
     return ResponseEntity.ok(member);
   }
