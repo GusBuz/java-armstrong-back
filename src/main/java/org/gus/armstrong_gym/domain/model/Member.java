@@ -1,7 +1,9 @@
 package org.gus.armstrong_gym.domain.model;
 
+import java.lang.reflect.Field;
 
 import org.gus.armstrong_gym.domain.model.enums.PaymentPlan;
+import org.springframework.dao.DataIntegrityViolationException;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -119,11 +121,18 @@ public class Member {
   }
 
   public void updateMember(Member member){
-    this.fullname = member.getFullname();
-    this.cpf = member.getCpf();
-    this.phone = member.getPhone();
-    this.email = member.getEmail();
-    this.paymentPlan = member.getPaymentPlan();
+    Field[] fields = this.getClass().getDeclaredFields();
+
+    for (Field field : fields) {
+      try {
+        Object value = field.get(address);
+        if (value != null) {
+          field.set(this, value);
+        }
+      } catch (IllegalAccessException e) {
+        throw new DataIntegrityViolationException("Data integrity violation, unable to access the field: " + field.getName(), e);
+      }
+    }
   }
 
   @Override

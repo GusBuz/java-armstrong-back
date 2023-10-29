@@ -1,6 +1,10 @@
 package org.gus.armstrong_gym.domain.model;
 
 
+import java.lang.reflect.Field;
+
+import org.springframework.dao.DataIntegrityViolationException;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.CascadeType;
@@ -138,12 +142,18 @@ public class Address {
   }
 
   public void updateAddress(Address address){
-    this.cep = address.getCep();
-    this.street = address.getStreet();
-    this.number = address.getNumber();
-    this.complement = address.getComplement();
-    this.neighborhood = address.getNeighborhood();
-    this.city = address.getCity();
-    this.state = address.getState();
+    
+    Field[] fields = this.getClass().getDeclaredFields();
+
+    for (Field field : fields) {
+      try {
+        Object value = field.get(address);
+        if (value != null) {
+          field.set(this, value);
+        }
+      } catch (IllegalAccessException e) {
+        throw new DataIntegrityViolationException("Data integrity violation, unable to access the field: " + field.getName(), e);
+      }
+    }
   }
 }
